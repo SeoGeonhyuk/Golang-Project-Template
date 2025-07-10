@@ -30,15 +30,21 @@ git commit -m "Initial commit with project template"
 # 3. 프로젝트별 README 작성
 mv README.md TEMPLATE_README.md
 # 새로운 README.md 작성
+
+# 4. 프로젝트별 CLAUDE.md 생성
+# 요구사항 정의 후 Claude 협업을 위한 지침 작성
 ```
 
 ### 2. Claude Code와 협업 시
 
-Claude Code에게 다음과 같이 요청하세요:
+Claude Code와 효과적으로 협업하려면:
+
+1. **프로젝트별 CLAUDE.md 생성**: 요구사항 정의 후 프로젝트에 맞는 Claude 지침 작성
+2. **체계적 요청**: documents/ 폴더의 템플릿을 참조하여 구체적으로 요청
 
 ```
-"이 프로젝트는 documents/ 폴더의 Go 프로젝트 템플릿을 따릅니다. 
-CLAUDE_INSTRUCTIONS.md를 먼저 읽고 TDD 방식으로 [기능명]을 구현해주세요."
+"CLAUDE.md를 참고하여 documents/1-requirements/REQUIREMENTS.md에 정의된 
+[기능명]을 TDD 방식으로 구현해주세요."
 ```
 
 ## 📁 문서 구조 및 사용법
@@ -90,6 +96,132 @@ CLAUDE_INSTRUCTIONS.md를 먼저 읽고 TDD 방식으로 [기능명]을 구현�
 1. 새로운 Go 패키지 사용 시 내용 추가
 2. Claude Code가 사용한 패키지 설명 요청
 3. 팀 학습 자료로 활용
+
+## 🤖 CLAUDE.md 설정 가이드
+
+### 언제 CLAUDE.md를 만들어야 할까요?
+
+프로젝트 요구사항을 정의한 후, 본격적인 개발에 들어가기 전에 `CLAUDE.md`를 생성하세요.
+
+**생성 시점:**
+1. `1-requirements/REQUIREMENTS.md` 작성 완료 후
+2. 기본 프로젝트 구조 설정 후
+3. Claude Code와 본격적인 협업 시작 전
+
+### 프로젝트 유형별 CLAUDE.md 예시
+
+#### 🌐 웹 API 프로젝트
+```markdown
+# Claude 개발 가이드
+
+## 프로젝트 개요
+- REST API 서버 개발
+- PostgreSQL + Redis 사용
+- Gin 프레임워크 활용
+
+## 개발 원칙
+- TDD 필수 (테스트 커버리지 85% 이상)
+- 레이어드 아키텍처 (handler-service-repository)
+- OpenAPI 3.0 스펙 준수
+
+## 코딩 스타일
+- Uber Go Style Guide 준수
+- 에러 처리: fmt.Errorf with %w
+- 컨텍스트는 항상 첫 번째 파라미터
+
+## 필수 체크사항
+- [ ] 모든 API에 입력값 검증
+- [ ] DB 트랜잭션 적절히 사용
+- [ ] 로깅 및 메트릭 추가
+```
+
+#### 🖥️ CLI 도구 프로젝트  
+```markdown
+# Claude 개발 가이드
+
+## 프로젝트 개요
+- CLI 도구 개발
+- Cobra 프레임워크 사용
+- 설정 파일: YAML
+
+## 개발 원칙
+- 사용자 친화적 인터페이스
+- 진행 상황 표시 (progressbar)
+- 명확한 에러 메시지
+
+## 코딩 스타일
+- Uber Go Style Guide 준수
+- 플래그는 kebab-case 사용
+- 도움말 메시지 필수
+
+## 필수 체크사항
+- [ ] --help 플래그 동작 확인
+- [ ] 잘못된 입력에 대한 명확한 에러
+- [ ] 설정 파일 검증
+```
+
+#### 📚 라이브러리 프로젝트
+```markdown
+# Claude 개발 가이드
+
+## 프로젝트 개요
+- Go 라이브러리 개발
+- 외부 의존성 최소화
+- 명확한 공개 API
+
+## 개발 원칙
+- 호환성 유지 (semantic versioning)
+- 풍부한 예제 및 문서
+- 철저한 테스트 (edge case 포함)
+
+## 코딩 스타일
+- Uber Go Style Guide 준수
+- godoc 주석 필수
+- 공개 함수는 예제 포함
+
+## 필수 체크사항
+- [ ] API 문서 작성
+- [ ] 예제 코드 동작 확인  
+- [ ] 벤치마크 테스트 추가
+```
+
+### 핵심 지침 템플릿
+
+모든 프로젝트에 공통으로 포함할 내용:
+
+```markdown
+# Claude 개발 가이드
+
+## 프로젝트 개요
+[프로젝트 설명, 주요 기술 스택]
+
+## 개발 원칙
+- TDD 방식 필수
+- [프로젝트별 아키텍처 패턴]
+- [품질 기준: 테스트 커버리지, 성능 목표 등]
+
+## 코딩 스타일
+- Uber Go Style Guide 준수
+- [프로젝트별 추가 스타일 가이드]
+
+## 자주 사용하는 패키지
+- [프로젝트에서 사용할 주요 라이브러리들]
+
+## 필수 체크사항
+- [ ] [프로젝트별 중요한 체크포인트들]
+
+## 금지사항
+- [ ] 전역 변수 사용 금지
+- [ ] 에러 무시 (_변수) 금지
+- [ ] [프로젝트별 안티패턴]
+```
+
+### CLAUDE.md 관리 팁
+
+1. **정기적 업데이트**: 새로운 패턴이나 규칙 발견 시 즉시 추가
+2. **팀과 공유**: 팀원들과 합의된 내용만 포함
+3. **간결성 유지**: 핵심 지침만 포함, 너무 길면 효과 감소
+4. **프로젝트 진화**: 요구사항 변경 시 CLAUDE.md도 함께 업데이트
 
 ## 🤖 Claude Code 활용 팁
 
@@ -156,7 +288,7 @@ TDD 방식으로 진행하고, 완료 후 5-learning/LEARNING_NOTES.md에
 
 ### 코드 리뷰 시
 
-`CLAUDE_INSTRUCTIONS.md`의 체크리스트 활용:
+프로젝트별 CLAUDE.md의 체크리스트 활용:
 - [ ] Uber Go Style Guide 준수
 - [ ] 적절한 에러 처리
 - [ ] 테스트 커버리지 확인
